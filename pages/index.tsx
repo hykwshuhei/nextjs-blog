@@ -4,18 +4,56 @@ import utilStyles from '../styles/utils.module.css';
 import { getSortedPostsData } from '../lib/posts';
 import Link from 'next/link';
 import Date from '../components/date';
+import { GetStaticProps } from "next";
+import React from 'react';
 
+// const Home: FC<{
+//   allPostData: Array<{
+//     id: string;
+//     title: string;
+//     date: string;
+//   }>;
+// }> = ({ allPostData }): ReactElement => {
+//   console.log(allPostData[0].id);
+//   return <></>;
+// };
 
-export async function getStaticProps() {
-  const allPostsData = getSortedPostsData();
+// export const getStaticProps:
+//   GetStaticProps<{
+//     allPostData: Array<{
+//       id: string;
+//       title: string;
+//       date: string;
+//     }>;
+//   }> = async () => {
+
+export const getStaticProps : GetStaticProps = async () => {
+  const allPostsData = getSortedPostsData()
   return {
-    props: {
-      allPostsData,
-    },
-  };
+    props : {
+      allPostsData
+    }
+  }
 }
 
-export default function Home({allPostsData}) {
+// export async function getStaticProps() {
+//   const allPostsData = getSortedPostsData();
+//   return {
+//     props: {
+//       allPostsData,
+//     },
+//   };
+// }
+
+export default function Home({
+  allPostsData
+}: {
+  allPostsData: {
+    date: string
+    title: string
+    id: string
+  }[]
+}) {
   return (
     <Layout home>
       <Head>
@@ -39,7 +77,7 @@ export default function Home({allPostsData}) {
               {/* {id} */}
               <br />
               <small className={utilStyles.lightText}>
-              <Date dateString={date} />
+                <Date dateString={date} />
               </small>
               {/* {date} */}
             </li>
